@@ -2,6 +2,7 @@ import express, { Response, Request } from 'express';
 import cors from 'cors';
 import { videos } from './routes/videos';
 import { AppError } from './typings/AppError';
+import { config } from './config';
 
 // CORS header configuration
 const corsOptions = {
@@ -10,6 +11,16 @@ const corsOptions = {
 };
 
 export const app = express();
+
+app.get('/', cors(corsOptions), (_: Request, res: Response) => {
+  res.header('Content-Type', 'text/html');
+  res.header('Cache-Control', 'no-store');
+
+  const videoRoute = `http://localhost:${config.server.port}/videos`;
+
+  res.status(200);
+  res.send(`You want <a href="${videoRoute}">${videoRoute}</a>`);
+});
 
 // Routes
 app.use('/videos', cors(corsOptions), videos);
