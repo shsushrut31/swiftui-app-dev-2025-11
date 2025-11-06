@@ -14,6 +14,8 @@ class VideoPlayerViewModel: ObservableObject {
     @Published var player: AVPlayer?
     @Published var isPlaying: Bool = false
     @Published var currentVideoIndex: Int = 0
+    @Published var isShowOverlayButtons: Bool = true
+    private var hideControlsTask: DispatchWorkItem?
     
     private let videoService: VideoServiceProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -51,6 +53,10 @@ class VideoPlayerViewModel: ObservableObject {
     }
     
     func loadVideo(at index: Int) {
+        hideControlsTask?.cancel()
+        player?.pause()
+        player = nil
+        
         guard index >= 0 && index < videos.count else { return }
         
         currentVideoIndex = index
@@ -61,6 +67,7 @@ class VideoPlayerViewModel: ObservableObject {
         
         player = AVPlayer(url: urlToLoad)
         isPlaying = false
+        isShowOverlayButtons = true
     }
     
     func togglePlayPause() {
@@ -68,10 +75,20 @@ class VideoPlayerViewModel: ObservableObject {
         
         if isPlaying {
             player.pause()
+            hideControlsTask?.cancel()
+            isShowOverlayButtons = true
         } else {
             player.play()
+            autoHideVideoPlayerControls()
         }
         isPlaying.toggle()
+    }
+    
+    func toggleHideShowVideoControls() {
+        if isPlaying {
+            isShowOverlayButtons.toggle()
+            autoHideVideoPlayerControls()
+        }
     }
     
     func playPrevious() {
@@ -82,5 +99,15 @@ class VideoPlayerViewModel: ObservableObject {
     func playNext() {
         guard canGoNext else { return }
         loadVideo(at: currentVideoIndex + 1)
+    }
+    
+    func autoHideVideoPlayerControls() {
+        hideControlsTask?.cancel()
+        
+        let task = DispatchWorkItem { [ weak self] in
+            self?.isShowOverlayButtons = false
+        }
+        hideControlsTask = task
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: task)
     }
 }

@@ -15,6 +15,9 @@ struct VideoPlayerView: View {
             if let player = viewModel.player {
                 CustomVideoPlayer(player: player)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onTapGesture {
+                        viewModel.toggleHideShowVideoControls()
+                    }
             } else {
                 Rectangle()
                     .fill(Color.black)
@@ -25,7 +28,9 @@ struct VideoPlayerView: View {
                     )
             }
             
-            VideoControlsOverlay(viewModel: viewModel)
+            if viewModel.isShowOverlayButtons {
+                VideoControlsOverlay(viewModel: viewModel)
+            }
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
