@@ -17,26 +17,26 @@ struct VideoControlsOverlay: View {
             } label: {
                 Image("previous")
                     .resizable()
-                    .renderingMode(.original)
-                    .foregroundColor(.gray)
+                    .renderingMode(.template)
+                    .foregroundColor(viewModel.canGoPrevious ? .black : .gray)
                     .aspectRatio(contentMode: .fit)
                     .padding(10)
                     .frame(width: 50, height: 50)
-                    .background(Circle().fill(Color.gray.opacity(0.7)))
+                    .background(Circle().fill(Color.gray.opacity(0.7)).stroke(.gray, style: StrokeStyle(lineWidth: 1.0)))
             }
             .disabled(!viewModel.canGoPrevious)
             
             Button {
                 viewModel.togglePlayPause()
             } label: {
-                Image("play")
+                Image(viewModel.isPlaying ? "pause" : "play")
                     .resizable()
-                    .renderingMode(.original)
-                    .foregroundColor(.gray)
+                    .renderingMode(.template)
+                    .foregroundColor(.black)
                     .aspectRatio(contentMode: .fit)
                     .padding(10)
                     .frame(width: 70, height: 70)
-                    .background(Circle().fill(Color.gray.opacity(0.7)))
+                    .background(Circle().fill(Color.gray.opacity(0.7)).stroke(.gray, style: StrokeStyle(lineWidth: 1.0)))
             }
             
             Button {
@@ -44,12 +44,12 @@ struct VideoControlsOverlay: View {
             } label: {
                 Image("next")
                     .resizable()
-                    .renderingMode(.original)
-                    .foregroundColor(.gray)
+                    .renderingMode(.template)
+                    .foregroundColor(viewModel.canGoNext ? .black : .gray)
                     .aspectRatio(contentMode: .fit)
                     .padding(10)
                     .frame(width: 50, height: 50)
-                    .background(Circle().fill(Color.gray.opacity(0.7)))
+                    .background(Circle().fill(Color.gray.opacity(0.7)).stroke(.gray, style: StrokeStyle(lineWidth: 1.0)))
             }
             .disabled(!viewModel.canGoNext)
         }
