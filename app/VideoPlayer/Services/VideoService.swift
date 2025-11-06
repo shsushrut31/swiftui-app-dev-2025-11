@@ -15,7 +15,7 @@ protocol VideoServiceProtocol {
 class VideoService: VideoServiceProtocol {
     static let shared = VideoService()
     
-    private let baseURL = "http://localhost:3000/videos"
+    private let baseURL = "http://localhost:4000/videos"
     private let session: URLSession
     
     init(session: URLSession = .shared) {
@@ -28,7 +28,7 @@ class VideoService: VideoServiceProtocol {
         }
         return session.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: [Video].self, decoder: jsonDecoder)
+            .decode(type: VideoResponse.self, decoder: jsonDecoder)
             .mapError { error -> VideoServiceError in
                 if error is DecodingError {
                     return .decodingError

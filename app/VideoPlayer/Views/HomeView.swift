@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var viewModel = VideoPlayerViewModel()
+    
     var body: some View {
         VStack {
+            Text("\(viewModel.videos.count)")
+            
             VideoPlayerView()
             
             VideoDetailsView()
