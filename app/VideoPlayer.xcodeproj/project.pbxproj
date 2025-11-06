@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A68A9E272EBC3C1C0082E48C /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = A68A9E262EBC3C1C0082E48C /* MarkdownUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3A6E03BC2EB54816008E2A35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		3A6E03AB2EB54813008E2A35 /* VideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6E03BB2EB54816008E2A35 /* VideoPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6E03C52EB54816008E2A35 /* VideoPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A68A9E172EBC36920082E48C /* VideoPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VideoPlayer.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A68A9E272EBC3C1C0082E48C /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +98,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A68A9E192EBC36920082E48C /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,6 +123,7 @@
 			);
 			name = VideoPlayer;
 			packageProductDependencies = (
+				A68A9E262EBC3C1C0082E48C /* MarkdownUI */,
 			);
 			productName = VideoPlayer;
 			productReference = 3A6E03AB2EB54813008E2A35 /* VideoPlayer.app */;
@@ -195,9 +207,18 @@
 			);
 			mainGroup = 3A6E03A22EB54813008E2A35;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A68A9E252EBC3C1C0082E48C /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3A6E03AC2EB54813008E2A35 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A68A9E192EBC36920082E48C /* Products */;
+					ProjectRef = A68A9E172EBC36920082E48C /* VideoPlayer.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3A6E03AA2EB54813008E2A35 /* VideoPlayer */,
@@ -552,6 +573,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A68A9E252EBC3C1C0082E48C /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A68A9E262EBC3C1C0082E48C /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A68A9E252EBC3C1C0082E48C /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3A6E03A32EB54813008E2A35 /* Project object */;
 }
