@@ -13,9 +13,17 @@ class VideoPlayerViewModel: ObservableObject {
     @Published var videos: [Video] = []
     @Published var player: AVPlayer?
     @Published var isPlaying: Bool = false
+    @Published var currentVideoIndex: Int = 0
     
     private let videoService: VideoServiceProtocol
     private var cancellables = Set<AnyCancellable>()
+    
+    var currentVideo: Video? {
+        guard currentVideoIndex >= 0 && currentVideoIndex < videos.count else {
+            return nil
+        }
+        return videos[currentVideoIndex]
+    }
     
     init(videoService: VideoServiceProtocol = VideoService.shared) {
         self.videoService = videoService
@@ -37,8 +45,8 @@ class VideoPlayerViewModel: ObservableObject {
     func loadVideo(at index: Int) {
         guard index >= 0 && index < videos.count else { return }
         
+        currentVideoIndex = index
         let video = videos[index]
-        
         let videoURL = URL(string: video.hlsURL)
         
         guard let urlToLoad = videoURL else { return }

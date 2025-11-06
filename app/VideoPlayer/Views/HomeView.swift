@@ -16,7 +16,7 @@ struct HomeView: View {
                 VideoPlayerView(viewModel: viewModel)
                     .frame(width: geometry.size.width)
                 
-                VideoDetailsView()
+                VideoDetailsView(video: viewModel.currentVideo)
                     .frame(width: geometry.size.width)
             }
         }
