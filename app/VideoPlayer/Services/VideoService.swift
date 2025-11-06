@@ -28,7 +28,7 @@ class VideoService: VideoServiceProtocol {
         }
         return session.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: [Video].self, decoder: JSONDecoder())
+            .decode(type: [Video].self, decoder: jsonDecoder)
             .mapError { error -> VideoServiceError in
                 if error is DecodingError {
                     return .decodingError
@@ -36,6 +36,15 @@ class VideoService: VideoServiceProtocol {
                 return .networkError(error)
             }
             .eraseToAnyPublisher()
+    }
+    
+    private var jsonDecoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        return decoder
     }
 }
 
