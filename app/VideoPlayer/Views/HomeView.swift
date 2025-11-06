@@ -23,6 +23,9 @@ struct HomeView: View {
         }
         .navigationTitle("Video Player")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            viewModel.fetchVideos()
+        }
     }
 }
 

@@ -41,7 +41,3 @@ struct VideoDetailsView: View {
         }
     }
 }
-
-#Preview {
-    VideoDetailsView(video: Video.demoVideos().first)
-}

@@ -14,7 +14,7 @@ class VideoPlayerViewModel: ObservableObject {
     @Published var player: AVPlayer?
     @Published var isPlaying: Bool = false
     @Published var currentVideoIndex: Int = 0
-    @Published var isShowOverlayButtons: Bool = true
+    @Published var isShowOverlayButtons: Bool = false
     @Published var errorMessage: String?
     private var hideControlsTask: DispatchWorkItem?
     
@@ -38,7 +38,6 @@ class VideoPlayerViewModel: ObservableObject {
     
     init(videoService: VideoServiceProtocol = VideoService.shared) {
         self.videoService = videoService
-        fetchVideos()
     }
     
     func fetchVideos() {
@@ -55,6 +54,7 @@ class VideoPlayerViewModel: ObservableObject {
                     self?.videos = videos
                     if !videos.isEmpty {
                         self?.loadVideo(at: 0)
+                        self?.isShowOverlayButtons = true
                     }
                 }
             )
