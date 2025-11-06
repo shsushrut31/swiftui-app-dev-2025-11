@@ -32,6 +32,7 @@
 		3A6E03BB2EB54816008E2A35 /* VideoPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6E03C52EB54816008E2A35 /* VideoPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A68A9E172EBC36920082E48C /* VideoPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VideoPlayer.xcodeproj; sourceTree = "<group>"; };
+		A68A9E2F2EBC3DE30082E48C /* VideoPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VideoPlayer.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -99,6 +100,11 @@
 			sourceTree = "<group>";
 		};
 		A68A9E192EBC36920082E48C /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A68A9E312EBC3DE30082E48C /* Products */ = {
 			isa = PBXGroup;
 			name = Products;
 			sourceTree = "<group>";
@@ -217,6 +223,10 @@
 				{
 					ProductGroup = A68A9E192EBC36920082E48C /* Products */;
 					ProjectRef = A68A9E172EBC36920082E48C /* VideoPlayer.xcodeproj */;
+				},
+				{
+					ProductGroup = A68A9E312EBC3DE30082E48C /* Products */;
+					ProjectRef = A68A9E2F2EBC3DE30082E48C /* VideoPlayer.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -417,6 +427,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VideoPlayer/Preview Content\"";
+				DEVELOPMENT_TEAM = 96RB3U946P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -445,6 +456,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VideoPlayer/Preview Content\"";
+				DEVELOPMENT_TEAM = 96RB3U946P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
