@@ -11,12 +11,14 @@ struct HomeView: View {
     @StateObject private var viewModel = VideoPlayerViewModel()
     
     var body: some View {
-        VStack {
-            Text("\(viewModel.videos.count)")
-            
-            VideoPlayerView()
-            
-            VideoDetailsView()
+        GeometryReader { geometry in
+            VStack {
+                VideoPlayerView(viewModel: viewModel)
+                    .frame(width: geometry.size.width)
+                
+                VideoDetailsView()
+                    .frame(width: geometry.size.width)
+            }
         }
         .navigationTitle("Video Player")
         .navigationBarTitleDisplayMode(.inline)

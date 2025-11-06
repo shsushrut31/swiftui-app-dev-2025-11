@@ -11,6 +11,7 @@ import Combine
 
 class VideoPlayerViewModel: ObservableObject {
     @Published var videos: [Video] = []
+    @Published var player: AVPlayer?
     
     private let videoService: VideoServiceProtocol
     private var cancellables = Set<AnyCancellable>()
