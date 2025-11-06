@@ -25,6 +25,14 @@ class VideoPlayerViewModel: ObservableObject {
         return videos[currentVideoIndex]
     }
     
+    var canGoPrevious: Bool {
+        currentVideoIndex > 0
+    }
+    
+    var canGoNext: Bool {
+        currentVideoIndex < videos.count - 1
+    }
+    
     init(videoService: VideoServiceProtocol = VideoService.shared) {
         self.videoService = videoService
 //        fetchVideos()
@@ -53,5 +61,26 @@ class VideoPlayerViewModel: ObservableObject {
         
         player = AVPlayer(url: urlToLoad)
         isPlaying = false
+    }
+    
+    func togglePlayPause() {
+        guard let player = player else { return }
+        
+        if isPlaying {
+            player.pause()
+        } else {
+            player.play()
+        }
+        isPlaying.toggle()
+    }
+    
+    func playPrevious() {
+        guard canGoPrevious else { return }
+        loadVideo(at: currentVideoIndex - 1)
+    }
+    
+    func playNext() {
+        guard canGoNext else { return }
+        loadVideo(at: currentVideoIndex + 1)
     }
 }
