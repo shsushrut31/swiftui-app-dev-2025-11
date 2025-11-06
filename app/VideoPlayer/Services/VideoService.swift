@@ -24,11 +24,23 @@ class VideoService: VideoServiceProtocol {
     
     func fetchVideos() -> AnyPublisher<[Video], any Error> {
         guard let url = URL(string: baseURL) else {
-            return Fail(error: NSError(domain: "Invalid URL", code: 0)).eraseToAnyPublisher()
+            return Fail(error: VideoServiceError.invalidURL).eraseToAnyPublisher()
         }
         return session.dataTaskPublisher(for: url)
             .map(\.data)
             .decode(type: [Video].self, decoder: JSONDecoder())
+            .mapError { error -> VideoServiceError in
+                if error is DecodingError {
+                    return .decodingError
+                }
+                return .networkError(error)
+            }
             .eraseToAnyPublisher()
     }
+}
+
+enum VideoServiceError: Error {
+    case invalidURL
+    case decodingError
+    case networkError(Error)
 }
