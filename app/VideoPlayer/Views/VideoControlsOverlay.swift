@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct VideoControlsOverlay: View {
+    @ObservedObject var viewModel: VideoPlayerViewModel
+    
     var body: some View {
         HStack(spacing: 40) {
             Button {
-                
+                viewModel.playPrevious()
             } label: {
                 Image("previous")
                     .resizable()
@@ -22,9 +24,10 @@ struct VideoControlsOverlay: View {
                     .frame(width: 50, height: 50)
                     .background(Circle().fill(Color.gray.opacity(0.7)))
             }
+            .disabled(!viewModel.canGoPrevious)
             
             Button {
-                
+                viewModel.togglePlayPause()
             } label: {
                 Image("play")
                     .resizable()
@@ -37,7 +40,7 @@ struct VideoControlsOverlay: View {
             }
             
             Button {
-                
+                viewModel.playNext()
             } label: {
                 Image("next")
                     .resizable()
@@ -48,11 +51,11 @@ struct VideoControlsOverlay: View {
                     .frame(width: 50, height: 50)
                     .background(Circle().fill(Color.gray.opacity(0.7)))
             }
-
+            .disabled(!viewModel.canGoNext)
         }
     }
 }
 
 #Preview {
-    VideoControlsOverlay()
+    VideoControlsOverlay(viewModel: VideoPlayerViewModel())
 }

@@ -25,7 +25,7 @@ struct VideoPlayerView: View {
                     )
             }
             
-            VideoControlsOverlay()
+            VideoControlsOverlay(viewModel: viewModel)
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
