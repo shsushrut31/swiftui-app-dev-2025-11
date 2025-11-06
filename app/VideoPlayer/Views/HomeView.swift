@@ -12,9 +12,12 @@ struct HomeView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack {
+            VStack(spacing: 0) {
                 VideoPlayerView(viewModel: viewModel)
                     .frame(width: geometry.size.width)
+                Divider()
+                    .frame(height: 1)
+                    .overlay(Color.black)
                 
                 VideoDetailsView(video: viewModel.currentVideo)
                     .frame(width: geometry.size.width)
