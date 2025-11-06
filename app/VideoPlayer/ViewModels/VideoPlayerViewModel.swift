@@ -12,6 +12,7 @@ import Combine
 class VideoPlayerViewModel: ObservableObject {
     @Published var videos: [Video] = []
     @Published var player: AVPlayer?
+    @Published var isPlaying: Bool = false
     
     private let videoService: VideoServiceProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -21,6 +22,7 @@ class VideoPlayerViewModel: ObservableObject {
 //        fetchVideos()
         //-TODO: remove below data once server issue fixed
         self.videos = Video.demoVideos()
+        self.loadVideo(at: 0)
     }
     
     func fetchVideos() {
@@ -30,5 +32,18 @@ class VideoPlayerViewModel: ObservableObject {
                 self?.videos = videos
             })
             .store(in: &cancellables)
+    }
+    
+    func loadVideo(at index: Int) {
+        guard index >= 0 && index < videos.count else { return }
+        
+        let video = videos[index]
+        
+        let videoURL = URL(string: video.hlsURL)
+        
+        guard let urlToLoad = videoURL else { return }
+        
+        player = AVPlayer(url: urlToLoad)
+        isPlaying = false
     }
 }
