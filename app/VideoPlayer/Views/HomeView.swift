@@ -18,6 +18,7 @@ struct HomeView: View {
                 
                 VideoDetailsView(video: viewModel.currentVideo)
                     .frame(width: geometry.size.width)
+                    .id(viewModel.currentVideo?.id)
             }
         }
         .navigationTitle("Video Player")
