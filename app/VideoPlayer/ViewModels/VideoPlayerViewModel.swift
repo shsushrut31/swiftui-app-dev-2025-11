@@ -15,6 +15,7 @@ class VideoPlayerViewModel: ObservableObject {
     @Published var isPlaying: Bool = false
     @Published var currentVideoIndex: Int = 0
     @Published var isShowOverlayButtons: Bool = true
+    @Published var errorMessage: String?
     private var hideControlsTask: DispatchWorkItem?
     
     private let videoService: VideoServiceProtocol
@@ -37,18 +38,26 @@ class VideoPlayerViewModel: ObservableObject {
     
     init(videoService: VideoServiceProtocol = VideoService.shared) {
         self.videoService = videoService
-//        fetchVideos()
-        //-TODO: remove below data once server issue fixed
-        self.videos = Video.demoVideos()
-        self.loadVideo(at: 0)
+        fetchVideos()
     }
     
     func fetchVideos() {
         videoService.fetchVideos()
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] videos in
-                self?.videos = videos
-            })
+            .map { Video.sortedByDate($0) }
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.errorMessage = self?.errorDescription(for: error)
+                    }
+                },
+                receiveValue: { [weak self] videos in
+                    self?.videos = videos
+                    if !videos.isEmpty {
+                        self?.loadVideo(at: 0)
+                    }
+                }
+            )
             .store(in: &cancellables)
     }
     
@@ -109,5 +118,16 @@ class VideoPlayerViewModel: ObservableObject {
         }
         hideControlsTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: task)
+    }
+    
+    private func errorDescription(for error: VideoServiceError) -> String {
+        switch error {
+        case .invalidURL:
+            return "Invalid URL"
+        case .decodingError:
+            return "Failed to decode video data"
+        case .networkError(let error):
+            return "Network error: \(error.localizedDescription)"
+        }
     }
 }

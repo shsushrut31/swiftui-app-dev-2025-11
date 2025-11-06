@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol VideoServiceProtocol {
-    func fetchVideos() -> AnyPublisher<[Video], Error>
+    func fetchVideos() -> AnyPublisher<[Video], VideoServiceError>
 }
 
 class VideoService: VideoServiceProtocol {
@@ -22,7 +22,7 @@ class VideoService: VideoServiceProtocol {
         self.session = session
     }
     
-    func fetchVideos() -> AnyPublisher<[Video], any Error> {
+    func fetchVideos() -> AnyPublisher<[Video], VideoServiceError> {
         guard let url = URL(string: baseURL) else {
             return Fail(error: VideoServiceError.invalidURL).eraseToAnyPublisher()
         }
